@@ -1,17 +1,104 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
- <head>
-  <meta charset="utf-8" />
-  <title>HTML5</title>
-  <!--[if IE]>
-   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <style>
-   article, aside, details, figcaption, figure, footer,header,
-   hgroup, menu, nav, section { display: block; }
-  </style>
- </head>
- <body>
-  <p>Привет, мир</p>
- </body>
+    <head>
+        <meta chharset="utf-8">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <title>Балдей рука, гуляй писюн Web</title>
+        <style type="text/css">
+            a, img {display: none};
+        </style>
+    </head>
+    <body style="margin: 0">
+        
+        <img src="" id="picture">
+        
+        <script type="text/javascript">
+            
+            alreadyPics = [];
+            NotMobile = null;
+            
+            // function centring () {
+            //     $("img").css("right", $("img").attr("clientWidth")/2 - $("body").attr("clientWidth")/2 + "px");
+            // }
+            
+            function centring () {
+                
+                obOfc = document.querySelector("img");
+                obAbc = document.querySelector("body");
+                
+                //alert(obOfc.clientWidth/2);
+                obOfc.style.left = String (obAbc.clientWidth/2 - obOfc.clientWidth/2) + "px";
+
+            }
+            
+            function postCentring () {
+                if (NotMobile) {
+                    document.querySelector("img").onload = function(){
+                        //alert("Скорей дрочить!")      // your code here.......
+                        centring();
+                    };
+                }
+            }
+            
+            
+            function setRandomPic () {
+                
+                picVolume = 600; // - КОЛИЧЕСТВО ФОТО В ПАПКЕ ХХХ
+                
+                picNumber = Math.floor(Math.random() * picVolume);
+                
+                //alert(pn);
+                
+                if (picNumber != 0 && alreadyPics.indexOf( picNumber ) == -1) {
+                    alreadyPics.push(picNumber);
+                    $("#picture").attr("src", "xxx/p (" + picNumber + ").jpg");
+                    postCentring ();
+                    //$("#picture").ready( function() {centring();});
+                    //return " (" + picNumber + ")" ;
+                }
+                else if (picNumber != 0 && alreadyPics.indexOf( picNumber ) != -1){
+                    //alert("Оппа, попаданчик! " + picNumber);
+                    setRandomPic();
+                }
+                else {
+                    alreadyPics.push(picNumber);
+                    $("#picture").attr("src", "xxx/p.jpg");
+                    //$("#picture").ready( function() {centring();});
+                    postCentring ();
+                };
+                
+                //alert(alreadyPics)
+                
+            };
+            
+            setRandomPic();
+            //postCentring ();
+            
+            $("#picture").ready( function() {
+                $("#picture").css("display","block");
+                $("#picture").css("position","absolute");
+            
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    $("#picture").css("width","100%");
+                } else { 
+                    $("#picture").css("height","100%") 
+                    NotMobile = true;
+                };
+                    
+            });
+            
+            document.querySelector("img").onload = function(){
+                if (NotMobile) {
+                        centring();
+                };
+            };
+                    
+            
+            
+            document.addEventListener("click", function() {
+                setRandomPic();
+            });
+                
+        </script>
+    </body>
 </html>
